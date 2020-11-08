@@ -9,7 +9,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = box = rick = NULL;
+	circle = map = NULL;
 	ray_on = false;
 	sensed = false;
 }
@@ -26,11 +26,54 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	circle = App->textures->Load("pinball/wheel.png"); 
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
+	map = App->textures->Load("pinball/background.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
-	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
+
+
+	int Background[78] = {
+	355, 938,
+	353, 916,
+	526, 835,
+	538, 809,
+	537, 663,
+	480, 605,
+	480, 539,
+	525, 456,
+	526, 336,
+	474, 132,
+	482, 121,
+	510, 148,
+	527, 193,
+	540, 242,
+	544, 294,
+	543, 333,
+	544, 871,
+	578, 872,
+	576, 225,
+	552, 145,
+	511, 93,
+	445, 38,
+	363, 12,
+	306, 10,
+	243, 25,
+	190, 53,
+	55, 190,
+	20, 246,
+	20, 598,
+	47, 626,
+	7, 673,
+	6, 828,
+	16, 845,
+	170, 916,
+	170, 936,
+	0, 936,
+	0, -1,
+	580, 0,
+	581, 936
+	};
+
+	App->physics->CreateChain(0, 0, Background, 78);
 
 	return ret;
 }
@@ -46,6 +89,9 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+
+	App->renderer->Blit(map, 0, 0, NULL);
+
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		ray_on = !ray_on;
@@ -53,59 +99,14 @@ update_status ModuleSceneIntro::Update()
 		ray.y = App->input->GetMouseY();
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+
+	/*if(player dies) == true)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
 		circles.getLast()->data->listener = this;
-	}
+	}*/
 
-	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		// Pivot 0, 0
-		int rick_head[64] = {
-			14, 36,
-			42, 40,
-			40, 0,
-			75, 30,
-			88, 4,
-			94, 39,
-			111, 36,
-			104, 58,
-			107, 62,
-			117, 67,
-			109, 73,
-			110, 85,
-			106, 91,
-			109, 99,
-			103, 104,
-			100, 115,
-			106, 121,
-			103, 125,
-			98, 126,
-			95, 137,
-			83, 147,
-			67, 147,
-			53, 140,
-			46, 132,
-			34, 136,
-			38, 126,
-			23, 123,
-			30, 114,
-			10, 102,
-			29, 90,
-			0, 75,
-			30, 62
-		};
-
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
-	}
-
-	// Prepare for raycast ------------------------------------------------------
+    // Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
 	mouse.x = App->input->GetMouseX();
@@ -139,16 +140,6 @@ update_status ModuleSceneIntro::Update()
 			if(hit >= 0)
 				ray_hit = hit;
 		}
-		c = c->next;
-	}
-
-	c = ricks.getFirst();
-
-	while(c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 

@@ -57,11 +57,10 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool var)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType var)
 {
-	if (var == true) {
 		b2BodyDef body;
-		body.type = b2_staticBody;
+		body.type = var;
 		body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 		b2Body* b = world->CreateBody(&body);
@@ -80,30 +79,6 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool var)
 		pbody->width = pbody->height = radius;
 
 		return pbody;
-	}
-	else if (var == false)
-	{
-		b2BodyDef body;
-		body.type = b2_dynamicBody;
-		body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
-		b2Body* b = world->CreateBody(&body);
-
-		b2CircleShape shape;
-		shape.m_radius = PIXEL_TO_METERS(radius);
-		b2FixtureDef fixture;
-		fixture.shape = &shape;
-		fixture.density = 1.0f;
-
-		b->CreateFixture(&fixture);
-
-		PhysBody* pbody = new PhysBody();
-		pbody->body = b;
-		b->SetUserData(pbody);
-		pbody->width = pbody->height = radius;
-
-		return pbody;
-	}
 }
 
 PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)

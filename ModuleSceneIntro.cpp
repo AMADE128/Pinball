@@ -25,38 +25,42 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("pinball/wheel.png"); 
+	circle = App->textures->Load("pinball/ball.png"); 
 	map = App->textures->Load("pinball/Background.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	// Pivot 0, 0
-	int Background[50] = {
-		755, 1109,
-		757, 336,
-		719, 215,
-		667, 142,
-		572, 70,
-		460, 37,
-		300, 48,
-		214, 88,
-		155, 142,
-		111, 223,
-		100, 296,
-		100, 401,
-		116, 510,
-		137, 590,
-		177, 666,
-		160, 692,
-		157, 781,
-		113, 793,
-		93, 831,
-		93, 980,
-		286, 1109,
-		63, 1111,
-		62, 0,
+	// Pivot 0, 0
+	int Background[56] = {
+		708, 1098,
+		757, 1098,
+		757, 338,
+		734, 247,
+		691, 171,
+		626, 106,
+		543, 61,
+		453, 38,
+		348, 38,
+		262, 66,
+		177, 122,
+		134, 167,
+		112, 221,
+		101, 280,
+		105, 449,
+		134, 576,
+		174, 660,
+		158, 691,
+		154, 778,
+		116, 790,
+		95, 828,
+		95, 982,
+		288, 1112,
+		58, 1113,
+		62, -1,
 		830, 0,
-		829, 1111
-	}; App->physics->CreateChain(0, 0, Background, 50);
+		832, 1110,
+		703, 1110
+	}; App->physics->CreateChain(0, 0, Background, 56);
 
 	// Pivot 0, 0
 	int Background2[68] = {
@@ -207,11 +211,16 @@ bool ModuleSceneIntro::Start()
 		415, 173
 	}; App->physics->CreateChain(0, 0, StickRight, 8);
 
-	App->physics->CreateCircle(427, 304, 35, true);
+	App->physics->CreateCircle(427, 304, 35, b2_staticBody);
 
-	App->physics->CreateCircle(327, 346, 35, true);
+	App->physics->CreateCircle(327, 346, 35, b2_staticBody);
 
-	App->physics->CreateCircle(404, 420, 35, true);
+	App->physics->CreateCircle(404, 420, 35, b2_staticBody);
+
+	//the ball
+
+	circles.add(App->physics->CreateCircle(732, 1025, 20, b2_dynamicBody));
+
 
 	return ret;
 }
@@ -260,8 +269,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		if(c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
-			App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
+		App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 

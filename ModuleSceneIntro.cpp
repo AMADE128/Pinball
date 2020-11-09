@@ -219,7 +219,7 @@ bool ModuleSceneIntro::Start()
 
 	//the ball
 
-	circles.add(App->physics->CreateCircle(732, 1025, 20, b2_dynamicBody));
+	circles.add(App->physics->CreateCircle(732, 725, 20, b2_dynamicBody));
 
 
 	return ret;
@@ -233,18 +233,28 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
+update_status ModuleSceneIntro::PreUpdate()
+{
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	{
+		p2List_item<PhysBody*>* c = circles.getFirst();
+		c->data->
+	}
+
+}
+
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
 
 	App->renderer->Blit(map, 0, 0, NULL);
 
-	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	/*if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		ray_on = !ray_on;
 		ray.x = App->input->GetMouseX();
 		ray.y = App->input->GetMouseY();
-	}
+	}*/
 
 
 	/*if(player dies) == true)

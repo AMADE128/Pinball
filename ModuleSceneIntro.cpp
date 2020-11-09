@@ -238,9 +238,9 @@ update_status ModuleSceneIntro::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
 	{
 		p2List_item<PhysBody*>* c = circles.getFirst();
-		c->data->
 	}
-
+	
+	return UPDATE_CONTINUE;
 }
 
 // Update: draw background

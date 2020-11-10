@@ -5,6 +5,7 @@
 #include "ModulePhysics.h"
 #include "p2Point.h"
 #include "math.h"
+#include "ModuleSceneIntro.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
@@ -54,6 +55,19 @@ update_status ModulePhysics::PreUpdate()
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	{
+		b2Body* b = world->GetBodyList();
+		b->SetFixedRotation(true);
+		b->ApplyLinearImpulse({ 0, -2.7f }, b->GetLocalCenter(), true);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
+	{
+		b2Body* b = world->GetBodyList();  
+		b->SetFixedRotation(false);
+	}
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -69,7 +83,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType var)
 		shape.m_radius = PIXEL_TO_METERS(radius);
 		b2FixtureDef fixture;
 		fixture.shape = &shape;
-		fixture.density = 1.0f;
+		fixture.density = 0.4f;
 
 		b->CreateFixture(&fixture);
 

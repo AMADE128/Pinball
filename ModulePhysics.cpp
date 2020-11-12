@@ -398,9 +398,9 @@ void ModulePhysics::CreateFliper()
 	b1->CreateFixture(&fixture);
 
 
-	x = 315; //271 1119
+	x = 320; //271 1119
 	y = 1030;
-	w = 80; //100 31
+	w = 100; //100 31
 	h = 20;
 
 	body.type = b2_dynamicBody;

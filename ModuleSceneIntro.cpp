@@ -31,6 +31,7 @@ bool ModuleSceneIntro::Start()
 
 	// Pivot 0, 0
 	// Pivot 0, 0
+	/*
 	int Background[56] = {
 		708, 1098,
 		757, 1098,
@@ -219,8 +220,9 @@ bool ModuleSceneIntro::Start()
 
 	//the ball
 
-	circles.add(App->physics->CreateCircle(732, 725, 20, b2_dynamicBody));
+	circles.add(App->physics->CreateCircle(732, 725, 20, b2_dynamicBody)); */
 
+	App->physics->CreateFliper();
 
 	return ret;
 }

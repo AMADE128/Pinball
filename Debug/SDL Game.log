@@ -1,8 +1,53 @@
-﻿  ModulePhysics.cpp
-C:\Users\Tomas\Documents\GitHub\Pinball\ModulePhysics.cpp(166,23): warning C4244:  '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Tomas\Documents\GitHub\Pinball\ModulePhysics.cpp(167,25): warning C4244:  '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Tomas\Documents\GitHub\Pinball\ModulePhysics.cpp(210,20): warning C4018:  '<': no coinciden signed/unsigned
-C:\Users\Tomas\Documents\GitHub\Pinball\ModulePhysics.cpp(396,13): warning C4244:  'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Tomas\Documents\GitHub\Pinball\ModulePhysics.cpp(397,13): warning C4244:  'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Tomas\Documents\GitHub\Pinball\ModulePhysics.cpp(403,27): warning C4244:  'return': conversión de 'float32' a 'int'; posible pérdida de datos
-  SDL Game.vcxproj -> C:\Users\Tomas\Documents\GitHub\Pinball\Debug\2D Physics - class 4.exe
+﻿  ModuleSceneIntro.cpp
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(304,45): warning C4244: 'argument': conversion from 'TYPE' to 'TYPE', possible loss of data
+          with
+          [
+              TYPE=int
+          ]
+          and
+          [
+              TYPE=float
+          ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(304,30): warning C4244: 'argument': conversion from 'TYPE' to 'TYPE', possible loss of data
+          with
+          [
+              TYPE=int
+          ]
+          and
+          [
+              TYPE=float
+          ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(306,18): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(308,70): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(308,47): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(311,138): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(311,96): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(311,57): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(311,34): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(319,9): warning C4101: 'y': unreferenced local variable
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(319,6): warning C4101: 'x': unreferenced local variable
+  SDL Game.vcxproj -> C:\Users\POL\Documents\GitHub\Pinball\Debug\2D Physics - class 4.exe

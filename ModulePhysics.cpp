@@ -44,13 +44,13 @@ update_status ModulePhysics::PreUpdate()
 {
 	world->Step(1.0f / 60.0f, 6, 2);
 
-	for(b2Contact* c = world->GetContactList(); c; c = c->GetNext())
+	for (b2Contact* c = world->GetContactList(); c; c = c->GetNext())
 	{
-		if(c->GetFixtureA()->IsSensor() && c->IsTouching())
+		if (c->GetFixtureA()->IsSensor() && c->IsTouching())
 		{
 			PhysBody* pb1 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
 			PhysBody* pb2 = (PhysBody*)c->GetFixtureA()->GetBody()->GetUserData();
-			if(pb1 && pb2 && pb1->listener)
+			if (pb1 && pb2 && pb1->listener)
 				pb1->listener->OnCollision(pb1, pb2);
 		}
 	}
@@ -64,10 +64,15 @@ update_status ModulePhysics::PreUpdate()
 	}
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
 	{
-		b2Body* b = world->GetBodyList();  
+		b2Body* b = world->GetBodyList();
 		b->SetFixedRotation(false);
 	}
-
+	
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		App->physics->LeftFlipper->ApplyTorque(-500, true);
+	}
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -375,10 +380,10 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 void ModulePhysics::CreateFliper()
 {
-	int x = 241; //241 1089
-	int y = 1089;
-	int h = 2; //10 10
-	int w = 2;
+	int x = 285; //241 1089
+	int y = 1030;
+	int h = 10; //10 10
+	int w = 10;
 
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -393,15 +398,15 @@ void ModulePhysics::CreateFliper()
 	b1->CreateFixture(&fixture);
 
 
-	x = 271; //271 1119
-	y = 1119;
-	h = 2; //100 31
-	w = 2;
+	x = 315; //271 1119
+	y = 1030;
+	w = 80; //100 31
+	h = 20;
 
 	body.type = b2_dynamicBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 	LeftFlipper = world->CreateBody(&body);
-	box.SetAsBox(PIXEL_TO_METERS(x) * 0.5f, PIXEL_TO_METERS(y) * 0.5f);
+	box.SetAsBox(PIXEL_TO_METERS(w) * 0.5f, PIXEL_TO_METERS(h) * 0.5f);
 	fixture.shape = &box;
 	fixture.density = 2;
 

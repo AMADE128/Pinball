@@ -72,6 +72,54 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
+void ModulePhysics::CreateFliper()
+{
+	int x = 20; //241 1089
+	int y = 200;
+	int h = 10; //10 10
+	int w = 10;
+
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b1 = world->CreateBody(&body);
+	b2PolygonShape box;
+	b2FixtureDef fixture;
+
+	box.SetAsBox(PIXEL_TO_METERS(w) * 0.5f, PIXEL_TO_METERS(h) * 0.5f);
+	fixture.shape = &box;
+	b1->CreateFixture(&fixture);
+
+
+	x = 50; //271 1119
+	y = 200;
+	h = 100; //100 31
+	w = 31;
+
+	body.type = b2_dynamicBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	LeftFlipper = world->CreateBody(&body);
+	box.SetAsBox(PIXEL_TO_METERS(x) * 0.5f, PIXEL_TO_METERS(y) * 0.5f);
+	fixture.shape = &box;
+	fixture.density = 2;
+
+	LeftFlipper->CreateFixture(&fixture);
+
+	LeftFlipperJoint.Initialize(b1, LeftFlipper, b1->GetWorldCenter());
+	LeftFlipperJoint.lowerAngle = -0.25f * b2_pi;
+	LeftFlipperJoint.upperAngle = 0.25f * b2_pi;
+	LeftFlipperJoint.enableLimit = true;
+	LeftFlipperJoint.maxMotorTorque = 10.0f;
+	LeftFlipperJoint.motorSpeed = 3.0f;
+	LeftFlipperJoint.enableMotor = true;
+
+	world->CreateJoint(&LeftFlipperJoint);
+
+	LeftFlipper->IsBullet();
+
+}
+
 PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType var)
 {
 		b2BodyDef body;

@@ -200,7 +200,7 @@ bool ModuleSceneIntro::Start()
 		333, 255,
 		350, 247,
 		350, 192,
-		331, 192
+		331, 199
 	}; App->physics->CreateChain(0, 0, StickLeft, 8);
 
 	// Pivot 0, 0
@@ -211,11 +211,11 @@ bool ModuleSceneIntro::Start()
 		415, 173
 	}; App->physics->CreateChain(0, 0, StickRight, 8);
 
-	App->physics->CreateCircle(427, 304, 35, b2_staticBody);
+	App->physics->CreateCircle(427, 304, 32, b2_staticBody);
 
-	App->physics->CreateCircle(327, 346, 35, b2_staticBody);
+	App->physics->CreateCircle(327, 346, 32, b2_staticBody);
 
-	App->physics->CreateCircle(404, 420, 35, b2_staticBody);
+	App->physics->CreateCircle(404, 420, 32, b2_staticBody);
 
 	//the ball
 

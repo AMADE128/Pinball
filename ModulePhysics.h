@@ -58,4 +58,5 @@ private:
 	b2Body* ground;
 	/*iPoint position;*/
 	b2Body* BodyClicked;
+	bool AddImpulse = true;
 };

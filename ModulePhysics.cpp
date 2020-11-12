@@ -55,11 +55,12 @@ update_status ModulePhysics::PreUpdate()
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && AddImpulse == true)
 	{
 		b2Body* b = world->GetBodyList();
 		b->SetFixedRotation(true);
 		b->ApplyLinearImpulse({ 0, -2.7f }, b->GetLocalCenter(), true);
+		AddImpulse = false;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
 	{

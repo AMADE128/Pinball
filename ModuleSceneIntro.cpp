@@ -218,10 +218,11 @@ bool ModuleSceneIntro::Start()
 
 	App->physics->CreateCircle(404, 420, 32, b2_staticBody);
 
-	App->physics->CreateFliper();
+	App->physics->CreateFlipperLeft(285, 1030, 10, 10, 320, 1030, 100, 20, -0.25, 0.25);
+	App->physics->CreateFlipperRight(477, 1030, 10, 10, 440, 1030, 100, 20, -0.25, -0.25);
 	//the ball
 
-	circles.add(App->physics->CreateCircle(732, 725, 20, b2_dynamicBody)); 
+	circles.add(App->physics->CreateCircle(732, 725, 18, b2_dynamicBody)); 
 
 
 
@@ -240,6 +241,26 @@ bool ModuleSceneIntro::CleanUp()
 
 update_status ModuleSceneIntro::PreUpdate()
 {	
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+    {
+		App->physics->LeftFlipper->ApplyForce({ 10, 80 }, { 0, 0 }, true);
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+		{
+			App->physics->LeftFlipper->ApplyForce({ -10, -80 }, { 0, 0 }, true);
+		}
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		App->physics->RightFlipper->ApplyForce({ -10, -80 }, { 0, 0 }, true);
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			App->physics->RightFlipper->ApplyForce({ 10, 80 }, { 0, 0 }, true);
+		}
+	}
 	return UPDATE_CONTINUE;
 }
 

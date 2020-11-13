@@ -55,22 +55,17 @@ update_status ModulePhysics::PreUpdate()
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN && AddImpulse == true)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && AddImpulse == true)
 	{
 		b2Body* b = world->GetBodyList();
 		b->SetFixedRotation(true);
 		b->ApplyLinearImpulse({ 0, -2.7f }, b->GetLocalCenter(), true);
 		AddImpulse = false;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
 		b2Body* b = world->GetBodyList();
 		b->SetFixedRotation(false);
-	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		App->physics->LeftFlipper->ApplyTorque(-500, true);
 	}
 	
 
@@ -378,50 +373,76 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 }
 
 
-void ModulePhysics::CreateFliper()
+void ModulePhysics::CreateFlipperLeft(int jx, int jy, int jh, int jw, int bx, int by, int bw, int bh, float upperAngle, float downAngle)
 {
-	int x = 285; //241 1089
-	int y = 1030;
-	int h = 10; //10 10
-	int w = 10;
-
 	b2BodyDef body;
 	body.type = b2_staticBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	body.position.Set(PIXEL_TO_METERS(jx), PIXEL_TO_METERS(jy));
 
 	b2Body* b1 = world->CreateBody(&body);
 	b2PolygonShape box;
 	b2FixtureDef fixture;
 
-	box.SetAsBox(PIXEL_TO_METERS(w) * 0.5f, PIXEL_TO_METERS(h) * 0.5f);
+	box.SetAsBox(PIXEL_TO_METERS(jw) * 0.5f, PIXEL_TO_METERS(jh) * 0.5f);
+	fixture.shape = &box;
+	b1->CreateFixture(&fixture);
+
+	
+		body.type = b2_dynamicBody;
+		body.position.Set(PIXEL_TO_METERS(bx), PIXEL_TO_METERS(by));
+		LeftFlipper = world->CreateBody(&body);
+		box.SetAsBox(PIXEL_TO_METERS(bw) * 0.5f, PIXEL_TO_METERS(bh) * 0.5f);
+		fixture.shape = &box;
+		fixture.density = 2;
+
+		LeftFlipper->CreateFixture(&fixture);
+
+		LeftFlipperJoint.Initialize(b1, LeftFlipper, b1->GetWorldCenter());
+		LeftFlipperJoint.lowerAngle = upperAngle * b2_pi;
+		LeftFlipperJoint.upperAngle = downAngle * b2_pi;
+		LeftFlipperJoint.enableLimit = true;
+		LeftFlipperJoint.maxMotorTorque = 10.0f;
+		LeftFlipperJoint.motorSpeed = 3.0f;
+		LeftFlipperJoint.enableMotor = true;
+
+		world->CreateJoint(&LeftFlipperJoint);
+
+		LeftFlipper->IsBullet();
+}
+
+void ModulePhysics::CreateFlipperRight(int jx, int jy, int jh, int jw, int bx, int by, int bw, int bh, float upperAngle, float downAngle)
+{
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(jx), PIXEL_TO_METERS(jy));
+
+	b2Body* b1 = world->CreateBody(&body);
+	b2PolygonShape box;
+	b2FixtureDef fixture;
+
+	box.SetAsBox(PIXEL_TO_METERS(jw) * 0.5f, PIXEL_TO_METERS(jh) * 0.5f);
 	fixture.shape = &box;
 	b1->CreateFixture(&fixture);
 
 
-	x = 320; //271 1119
-	y = 1030;
-	w = 100; //100 31
-	h = 20;
-
 	body.type = b2_dynamicBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-	LeftFlipper = world->CreateBody(&body);
-	box.SetAsBox(PIXEL_TO_METERS(w) * 0.5f, PIXEL_TO_METERS(h) * 0.5f);
+	body.position.Set(PIXEL_TO_METERS(bx), PIXEL_TO_METERS(by));
+	RightFlipper = world->CreateBody(&body);
+	box.SetAsBox(PIXEL_TO_METERS(bw) * 0.5f, PIXEL_TO_METERS(bh) * 0.5f);
 	fixture.shape = &box;
 	fixture.density = 2;
 
-	LeftFlipper->CreateFixture(&fixture);
+	RightFlipper->CreateFixture(&fixture);
 
-	LeftFlipperJoint.Initialize(b1, LeftFlipper, b1->GetWorldCenter());
-	LeftFlipperJoint.lowerAngle = -0.25f * b2_pi;
-	LeftFlipperJoint.upperAngle = 0.25f * b2_pi;
-	LeftFlipperJoint.enableLimit = true;
-	LeftFlipperJoint.maxMotorTorque = 10.0f;
-	LeftFlipperJoint.motorSpeed = 3.0f;
-	LeftFlipperJoint.enableMotor = true;
+	RightFlipperJoint.Initialize(b1, RightFlipper, b1->GetWorldCenter());
+	RightFlipperJoint.lowerAngle = upperAngle * b2_pi;
+	RightFlipperJoint.upperAngle = downAngle * b2_pi;
+	RightFlipperJoint.enableLimit = true;
+	RightFlipperJoint.maxMotorTorque = 10.0f;
+	RightFlipperJoint.motorSpeed = 3.0f;
+	RightFlipperJoint.enableMotor = true;
 
-	world->CreateJoint(&LeftFlipperJoint);
+	world->CreateJoint(&RightFlipperJoint);
 
-	LeftFlipper->IsBullet();
-
+	RightFlipper->IsBullet();
 }

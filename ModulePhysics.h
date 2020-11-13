@@ -46,7 +46,8 @@ public:
 	PhysBody* CreateRectangle(int x, int y, int width, int height);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
-	void CreateFliper();
+	void CreateFlipperLeft(int jx, int jy, int jh, int jw, int bx, int by, int bh, int bw, float upperAngle, float downAngle);
+	void CreateFlipperRight(int jx, int jy, int jh, int jw, int bx, int by, int bh, int bw, float upperAngle, float downAngle);
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 	b2Body* LeftFlipper;
@@ -55,10 +56,11 @@ public:
 	b2RevoluteJointDef LeftFlipperJoint;
 	b2RevoluteJointDef RightFlipperJoint;
 
+	b2World* world;
+
 private:
 
 	bool debug;
-	b2World* world;
 	b2MouseJoint* mouse_joint;
 	b2Body* ground;
 	/*iPoint position;*/

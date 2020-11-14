@@ -371,19 +371,12 @@ update_status ModuleSceneIntro::Update()
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
-
-	
-	if(bodyA->body == Deathbox->body)
+	if (bodyB != NULL && bodyA != NULL)
 	{
-		bodyA->GetPosition(x, y);
-		circles.clear();
-		Alive = false;
-	}
-
-	if(bodyB->body == Deathbox->body)
-	{
-		bodyB->GetPosition(x, y);
-		circles.clear();
-		Alive = false;
+		if (bodyA->body == Deathbox->body || bodyB->body == Deathbox->body)
+		{
+			circles.clear();
+			Alive = false;
+		}
 	}
 }

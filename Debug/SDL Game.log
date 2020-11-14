@@ -48,4 +48,6 @@ C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(365,34): warning C424
           [
               TYPE=float
           ]
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(373,9): warning C4101: 'y': unreferenced local variable
+C:\Users\POL\Documents\GitHub\Pinball\ModuleSceneIntro.cpp(373,6): warning C4101: 'x': unreferenced local variable
   SDL Game.vcxproj -> C:\Users\POL\Documents\GitHub\Pinball\Debug\2D Physics - class 4.exe

@@ -276,7 +276,7 @@ update_status ModuleSceneIntro::Update()
 
 	App->renderer->Blit(leftFlipper, 270, 1010, NULL, 0, App->physics->LeftFlipper->GetAngle()*RADTODEG, 18, 18);
 
-	App->renderer->Blit(rightFlipper, 400, 1010, NULL, 0, App->physics->RightFlipper->GetAngle() * RADTODEG, 74, 18);
+	App->renderer->Blit(rightFlipper, 395, 1020, NULL, 0, App->physics->RightFlipper->GetAngle() * RADTODEG, 74, 18);
 
 	/*if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{

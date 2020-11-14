@@ -370,6 +370,17 @@ update_status ModuleSceneIntro::Update()
 	sprintf_s(scoreText, 10, "%d", score);
 	App->fonts->BlitText(80, 15, ScoreFont, scoreText);
 
+	if (counter < 100) 
+	{
+		counter++;
+
+	}
+	if (counter == 100)
+	{
+		score = score + 100;
+		counter = 0;
+	}
+
 	return UPDATE_CONTINUE;
 }
 

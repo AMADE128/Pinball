@@ -25,8 +25,9 @@ public:
 	p2List<PhysBody*> ricks;
 
 	char scoreText[10] = { "\0" };
-	int score = 90000;
+	int score = 0;
 	int ScoreFont = -1;
+	int counter = 0;
 
 	PhysBody* sensor;
 	PhysBody* Deathbox;

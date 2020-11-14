@@ -29,7 +29,8 @@ bool ModuleSceneIntro::Start()
 	map = App->textures->Load("pinball/Background.png");
 	leftFlipper = App->textures->Load("pinball/FlipperLeft.png");
 	rightFlipper = App->textures->Load("pinball/FlipperRight.png");
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	backgroundMusic = App->audio->LoadFx("pinball/music/background.wav");
+	flipperMusic = App->audio->LoadFx("pinball/music/flipper.wav");
 
 	// Pivot 0, 0
 	// Pivot 0, 0
@@ -226,6 +227,7 @@ bool ModuleSceneIntro::Start()
 
 	circles.add(App->physics->CreateCircle(732, 1075, 18, b2_dynamicBody)); 
 
+	App->audio->PlayFx(backgroundMusic, NULL);
 
 
 	return ret;
@@ -245,25 +247,33 @@ update_status ModuleSceneIntro::PreUpdate()
 {	
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
     {
-		App->physics->LeftFlipper->ApplyForce({ 10, 80 }, { 0, 0 }, true);
-
-		
+		App->physics->LeftFlipper->ApplyForce({ 10, 80 }, { 0, 0 }, true);		
 	}
+
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_IDLE)
 	{
 		App->physics->LeftFlipper->ApplyForce({ 10, 30 }, { 0, 0 }, true);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		App->audio->PlayFx(flipperMusic, NULL);
 	}
 
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		App->physics->RightFlipper->ApplyForce({ -10, -70 }, { 0, 0 }, true);
-
-		
 	}
+
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_IDLE)
 	{
 		App->physics->RightFlipper->ApplyForce({ 10, 30 }, { 0, 0 }, true);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		App->audio->PlayFx(flipperMusic, NULL);
 	}
 	return UPDATE_CONTINUE;
 }
@@ -348,8 +358,6 @@ update_status ModuleSceneIntro::Update()
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
-
-	App->audio->PlayFx(bonus_fx);
 
 	/*
 	if(bodyA)

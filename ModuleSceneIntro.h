@@ -31,7 +31,8 @@ public:
 	SDL_Texture* map;
 	SDL_Texture* rightFlipper;
 	SDL_Texture* leftFlipper;
-	uint bonus_fx;
+	unsigned int backgroundMusic;
+	unsigned int flipperMusic;
 	p2Point<int> ray;
 	bool ray_on;
 };

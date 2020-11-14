@@ -27,6 +27,8 @@ bool ModuleSceneIntro::Start()
 
 	circle = App->textures->Load("pinball/ball.png"); 
 	map = App->textures->Load("pinball/Background.png");
+	leftFlipper = App->textures->Load("pinball/FlipperLeft.png");
+	rightFlipper = App->textures->Load("pinball/FlipperRight.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	// Pivot 0, 0
@@ -272,6 +274,10 @@ update_status ModuleSceneIntro::Update()
 
 	App->renderer->Blit(map, 0, 0, NULL);
 
+	App->renderer->Blit(leftFlipper, 270, 1010, NULL, 0, App->physics->LeftFlipper->GetAngle()*RADTODEG, 18, 18);
+
+	App->renderer->Blit(rightFlipper, 400, 1010, NULL, 0, App->physics->RightFlipper->GetAngle() * RADTODEG, 74, 18);
+
 	/*if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		ray_on = !ray_on;
@@ -334,6 +340,7 @@ update_status ModuleSceneIntro::Update()
 		if(normal.x != 0.0f)
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
+
 
 	return UPDATE_CONTINUE;
 }

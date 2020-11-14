@@ -29,6 +29,8 @@ public:
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* map;
+	SDL_Texture* rightFlipper;
+	SDL_Texture* leftFlipper;
 	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;

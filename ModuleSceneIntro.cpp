@@ -215,7 +215,7 @@ bool ModuleSceneIntro::Start()
 		415, 173
 	}; App->physics->CreateChain(0, 0, StickRight, 8);
 
-	Deathbox = App->physics->CreateRectangleSensor(0, 1100, 1000, 200);
+	Deathbox = App->physics->CreateRectangleSensor(400, 1200, 500, 4);
 
 	App->physics->CreateCircle(427, 304, 32, b2_staticBody);
 
@@ -231,7 +231,7 @@ bool ModuleSceneIntro::Start()
 
 	circles.getFirst()->data->listener = this;
 
-	App->audio->PlayFx(backgroundMusic, NULL);
+	App->audio->PlayFx(backgroundMusic, -1);
 
 
 	return ret;
@@ -380,9 +380,10 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		Alive = false;
 	}
 
-	if(bodyB)
+	if(bodyB->body == Deathbox->body)
 	{
 		bodyB->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
+		circles.clear();
+		Alive = false;
 	}
 }

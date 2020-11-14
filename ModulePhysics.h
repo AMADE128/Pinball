@@ -57,6 +57,7 @@ public:
 	b2RevoluteJointDef RightFlipperJoint;
 
 	b2World* world;
+	bool AddImpulse = true;
 
 private:
 
@@ -65,5 +66,4 @@ private:
 	b2Body* ground;
 	/*iPoint position;*/
 	b2Body* BodyClicked;
-	bool AddImpulse = true;
 };

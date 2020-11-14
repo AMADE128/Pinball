@@ -24,8 +24,9 @@ public:
 	p2List<PhysBody*> ricks;
 
 	PhysBody* sensor;
+	PhysBody* Deathbox;
 	bool sensed;
-
+	bool Alive = true;
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* map;

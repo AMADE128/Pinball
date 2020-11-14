@@ -215,6 +215,8 @@ bool ModuleSceneIntro::Start()
 		415, 173
 	}; App->physics->CreateChain(0, 0, StickRight, 8);
 
+	Deathbox = App->physics->CreateRectangleSensor(0, 1100, 1000, 200);
+
 	App->physics->CreateCircle(427, 304, 32, b2_staticBody);
 
 	App->physics->CreateCircle(327, 346, 32, b2_staticBody);
@@ -226,6 +228,8 @@ bool ModuleSceneIntro::Start()
 	//the ball
 
 	circles.add(App->physics->CreateCircle(732, 1075, 18, b2_dynamicBody)); 
+
+	circles.getFirst()->data->listener = this;
 
 	App->audio->PlayFx(backgroundMusic, NULL);
 
@@ -275,12 +279,22 @@ update_status ModuleSceneIntro::PreUpdate()
 	{
 		App->audio->PlayFx(flipperMusic, NULL);
 	}
+
+
 	return UPDATE_CONTINUE;
 }
 
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+
+	if (Alive == false)
+	{
+		circles.add(App->physics->CreateCircle(732, 1075, 18, b2_dynamicBody));
+		circles.getFirst()->data->listener = this;
+		Alive = true;
+		App->physics->AddImpulse = true;
+	}
 
 	App->renderer->Blit(map, 0, 0, NULL);
 
@@ -351,7 +365,6 @@ update_status ModuleSceneIntro::Update()
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
 
-
 	return UPDATE_CONTINUE;
 }
 
@@ -359,16 +372,17 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
 
-	/*
-	if(bodyA)
+	
+	if(bodyA->body == Deathbox->body)
 	{
 		bodyA->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
+		circles.clear();
+		Alive = false;
 	}
 
 	if(bodyB)
 	{
 		bodyB->GetPosition(x, y);
 		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	}*/
+	}
 }

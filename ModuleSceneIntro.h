@@ -3,6 +3,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Globals.h"
+#include "SDL_ttf/include/SDL_ttf.h"
 
 class PhysBody;
 
@@ -35,4 +36,10 @@ public:
 	unsigned int flipperMusic;
 	p2Point<int> ray;
 	bool ray_on;
+	SDL_Surface* surfaceMessage;
+	SDL_Texture* Message;
+	TTF_Font* tipografy;
+	SDL_Color Black;
+	SDL_Color White;
+
 };

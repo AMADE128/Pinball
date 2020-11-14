@@ -32,6 +32,11 @@ bool ModuleSceneIntro::Start()
 	backgroundMusic = App->audio->LoadFx("pinball/music/background.wav");
 	flipperMusic = App->audio->LoadFx("pinball/music/flipper.wav");
 
+
+	TTF_Init();
+	tipografy = TTF_OpenFont("munro.ttf", 18);
+	Black = { 0,0,0 };
+	White = { 255,255,255 };
 	// Pivot 0, 0
 	// Pivot 0, 0
 	
@@ -350,6 +355,14 @@ update_status ModuleSceneIntro::Update()
 		if(normal.x != 0.0f)
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
+	using namespace::std;
+	int score;
+	std::stringstream t;
+	t = [0];
+	t << "SCORE" << score;
+
+	surfaceMessage = TTF_RenderText_Solid(tipografy, t.str().c_str(), Black);
+	Message = SDL_CreateTextureFromSurface(App->renderer->renderer, surfaceMessage);
 
 
 	return UPDATE_CONTINUE;

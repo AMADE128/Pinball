@@ -370,12 +370,12 @@ update_status ModuleSceneIntro::Update()
 	sprintf_s(scoreText, 10, "%d", score);
 	App->fonts->BlitText(80, 15, ScoreFont, scoreText);
 
-	if (counter < 100) 
+	if (counter < 300 && App->physics->AddImpulse == false)
 	{
 		counter++;
 
 	}
-	if (counter == 100)
+	if (counter == 300)
 	{
 		score = score + 100;
 		counter = 0;

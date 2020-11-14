@@ -367,8 +367,26 @@ update_status ModuleSceneIntro::Update()
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
 
+	//score+ hiscore:
+
 	sprintf_s(scoreText, 10, "%d", score);
 	App->fonts->BlitText(80, 15, ScoreFont, scoreText);
+	App->fonts->BlitText(80, 500, ScoreFont, scoreText);
+	sprintf_s(scoreText, 10, "%d", hiscore);
+	App->fonts->BlitText(500, 500, ScoreFont, scoreText);
+
+	if (lifes >= 1) {
+		App->renderer->Blit(circle, 450, 495, NULL);
+		
+	}
+	if (lifes >= 2)
+	{
+		App->renderer->Blit(circle, 400, 495, NULL);
+	}
+	if (lifes >= 3) {
+		App->renderer->Blit(circle, 350, 495, NULL);
+	}
+	
 
 	if (counter < 300 && App->physics->AddImpulse == false)
 	{
@@ -380,6 +398,11 @@ update_status ModuleSceneIntro::Update()
 		score = score + 100;
 		counter = 0;
 	}
+	if (score > hiscore)
+	{
+		hiscore = score;
+	}
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -401,10 +424,18 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	int x, y;
 	if (bodyB != NULL && bodyA != NULL)
 	{
-		if (bodyA->body == Deathbox->body || bodyB->body == Deathbox->body)
+		if (bodyA->body == Deathbox->body && lifes > 1 || bodyB->body == Deathbox->body && lifes > 1)
 		{
+			lifes--;
 			circles.clear();
 			Alive = false;
+		}
+		else if (bodyA->body == Deathbox->body && lifes == 1 || bodyB->body == Deathbox->body&&lifes==1)
+		{
+			lifes=3;
+			circles.clear();
+			Alive = false;
+			score = 0;
 		}
 	}
 

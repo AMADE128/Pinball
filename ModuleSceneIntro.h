@@ -26,9 +26,10 @@ public:
 
 	char scoreText[10] = { "\0" };
 	int score = 0;
+	int hiscore = 0;
 	int ScoreFont = -1;
 	int counter = 0;
-
+	int lifes = 3;
 	PhysBody* sensor;
 	PhysBody* Deathbox;
 	PhysBody* Startbox;

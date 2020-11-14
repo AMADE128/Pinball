@@ -224,7 +224,7 @@ bool ModuleSceneIntro::Start()
 	App->physics->CreateFlipperRight(477, 1030, 10, 10, 440, 1030, 100, 20, -0.25, 0.25);
 	//the ball
 
-	circles.add(App->physics->CreateCircle(732, 725, 18, b2_dynamicBody)); 
+	circles.add(App->physics->CreateCircle(732, 1075, 18, b2_dynamicBody)); 
 
 
 
@@ -276,7 +276,7 @@ update_status ModuleSceneIntro::Update()
 
 	App->renderer->Blit(leftFlipper, 270, 1010, NULL, 0, App->physics->LeftFlipper->GetAngle()*RADTODEG, 18, 18);
 
-	App->renderer->Blit(rightFlipper, 395, 1020, NULL, 0, App->physics->RightFlipper->GetAngle() * RADTODEG, 74, 18);
+	App->renderer->Blit(rightFlipper, 395, 1010, NULL, 0, App->physics->RightFlipper->GetAngle() * RADTODEG, 80, 18);
 
 	/*if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{

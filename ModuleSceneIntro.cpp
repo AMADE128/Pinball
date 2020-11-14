@@ -371,20 +371,19 @@ update_status ModuleSceneIntro::Update()
 
 	sprintf_s(scoreText, 10, "%d", score);
 	App->fonts->BlitText(80, 15, ScoreFont, scoreText);
-	App->fonts->BlitText(80, 500, ScoreFont, scoreText);
 	sprintf_s(scoreText, 10, "%d", hiscore);
-	App->fonts->BlitText(500, 500, ScoreFont, scoreText);
+	App->fonts->BlitText(500, 15, ScoreFont, scoreText);
 
 	if (lifes >= 1) {
-		App->renderer->Blit(circle, 450, 495, NULL);
+		App->renderer->Blit(circle, 450, 10, NULL);
 		
 	}
 	if (lifes >= 2)
 	{
-		App->renderer->Blit(circle, 400, 495, NULL);
+		App->renderer->Blit(circle, 400, 10, NULL);
 	}
 	if (lifes >= 3) {
-		App->renderer->Blit(circle, 350, 495, NULL);
+		App->renderer->Blit(circle, 350, 10, NULL);
 	}
 	
 

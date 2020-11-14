@@ -6,6 +6,7 @@
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
+#include "ModuleFonts.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -365,8 +366,23 @@ update_status ModuleSceneIntro::Update()
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
 
+	sprintf_s(scoreText, 10, "%d", score);
+	App->fonts->BlitText(80, 15, ScoreFont, scoreText);
+
 	return UPDATE_CONTINUE;
 }
+
+update_status ModuleSceneIntro::PosUpdate()
+{
+
+	sprintf_s(scoreText, 10, "%d", score);
+	App->fonts->BlitText(80, 15, ScoreFont, scoreText);
+
+
+
+	return UPDATE_CONTINUE;
+}
+
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {

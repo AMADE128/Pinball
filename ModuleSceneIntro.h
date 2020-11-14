@@ -15,6 +15,7 @@ public:
 	bool Start();
 	update_status Update();
 	update_status PreUpdate();
+	update_status PosUpdate();
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
@@ -22,6 +23,10 @@ public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
+
+	char scoreText[10] = { "\0" };
+	int score = 90000;
+	int ScoreFont = -1;
 
 	PhysBody* sensor;
 	PhysBody* Deathbox;

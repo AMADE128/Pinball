@@ -30,6 +30,7 @@ public:
 
 	PhysBody* sensor;
 	PhysBody* Deathbox;
+	PhysBody* Startbox;
 	bool sensed;
 	bool Alive = true;
 	SDL_Texture* circle;

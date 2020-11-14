@@ -218,6 +218,8 @@ bool ModuleSceneIntro::Start()
 
 	Deathbox = App->physics->CreateRectangleSensor(400, 1200, 500, 4);
 
+	Startbox = App->physics->CreateRectangleSensor(721, 1063, 50, 50);
+
 	App->physics->CreateCircle(427, 304, 32, b2_staticBody);
 
 	App->physics->CreateCircle(327, 346, 32, b2_staticBody);
@@ -294,7 +296,6 @@ update_status ModuleSceneIntro::Update()
 		circles.add(App->physics->CreateCircle(732, 1075, 18, b2_dynamicBody));
 		circles.getFirst()->data->listener = this;
 		Alive = true;
-		App->physics->AddImpulse = true;
 	}
 
 	App->renderer->Blit(map, 0, 0, NULL);
@@ -393,6 +394,14 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		{
 			circles.clear();
 			Alive = false;
+		}
+	}
+
+	if (bodyB != NULL && bodyA != NULL)
+	{
+		if (bodyA->body == Startbox->body || bodyB->body == Startbox->body)
+		{
+			App->physics->AddImpulse = true;
 		}
 	}
 }
